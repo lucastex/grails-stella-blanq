@@ -34,7 +34,6 @@ class CPFConstraint extends AbstractConstraint {
 		if(!cpf) { 
 			return; 
 		} 
-		println validateCpf(propertyValue)
 		if(!validateCpf(propertyValue)) {
 			def args = [constraintPropertyName, constraintOwningClass, propertyValue] 
 			super.rejectValue( 
