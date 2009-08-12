@@ -1,11 +1,17 @@
+-----------------
 Grails Stella 1.0
+-----------------
 
-- Funcionalidades
-	- CPF Constraint
-	- CNPJ Constraint
+Plugin para o Grails que encapsula o framework Stella da Caelum.
+É um framework voltado para facilitar o desenvolvimento de aplicações especializadas para o Brasi.
 
-- Uso
+Conheça o framework em: http://stella.caelum.com.br
 
+--------
+
+- Funcionalidades já implementadas do Caelum Stella
+- Modo de usar
+- Download e instalação
 - Implementações futuras
 
 - Contato
