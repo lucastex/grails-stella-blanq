@@ -8,7 +8,6 @@ Grails plugin for integrating Stella (http://stella.caelum.com.br) framework com
   <documentation>http://grails.org/plugin/grails-stella</documentation>
   <resources>
     <resource>DataSource</resource>
-    <resource>StellaConfig</resource>
     <resource>UrlMappings</resource>
   </resources>
   <dependencies />

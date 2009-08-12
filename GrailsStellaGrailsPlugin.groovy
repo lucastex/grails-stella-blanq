@@ -1,3 +1,7 @@
+import br.com.caelum.grails.stella.constraints.CPFConstraint
+import br.com.caelum.grails.stella.constraints.CNPJConstraint
+import org.codehaus.groovy.grails.validation.ConstrainedProperty
+
 class GrailsStellaGrailsPlugin {
     // the plugin version
     def version = "1.0"
@@ -22,6 +26,8 @@ Grails plugin for integrating Stella (http://stella.caelum.com.br) framework com
     def documentation = "http://grails.org/plugin/grails-stella"
 
     def doWithSpring = {
+		ConstrainedProperty.registerNewConstraint(CPFConstraint.CPF_CONSTRAINT, CPFConstraint.class)
+		ConstrainedProperty.registerNewConstraint(CNPJConstraint.CNPJ_CONSTRAINT, CNPJConstraint.class)
     }
 
     def doWithApplicationContext = { applicationContext ->
