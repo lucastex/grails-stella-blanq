@@ -1,0 +1,7 @@
+*.log
+ivy.xml
+ivysettings.xml
+grails-stella.launch
+garils-stella-test.launch
+build.xml
+*.tmproj
