@@ -1,6 +1,6 @@
 class GrailsStellaGrailsPlugin {
     // the plugin version
-    def version = "0.1"
+    def version = "1.0"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.1 > *"
     // the other plugins this plugin depends on
@@ -11,40 +11,31 @@ class GrailsStellaGrailsPlugin {
     ]
 
     // TODO Fill in these fields
-    def author = "Your name"
-    def authorEmail = ""
-    def title = "Plugin summary/headline"
+    def author = "Lucas Teixeira"
+    def authorEmail = "lucastex@gmail.com"
+    def title = "Grails-Stella integration"
     def description = '''\\
-Brief description of the plugin.
+Grails plugin for integrating Stella (http://stella.caelum.com.br) framework components.
 '''
 
     // URL to the plugin's documentation
-    def documentation = "http://grails.org/GrailsStella+Plugin"
+    def documentation = "http://grails.org/plugin/grails-stella"
 
     def doWithSpring = {
-        // TODO Implement runtime spring config (optional)
     }
 
     def doWithApplicationContext = { applicationContext ->
-        // TODO Implement post initialization spring config (optional)
     }
 
     def doWithWebDescriptor = { xml ->
-        // TODO Implement additions to web.xml (optional)
     }
 
     def doWithDynamicMethods = { ctx ->
-        // TODO Implement registering dynamic methods to classes (optional)
     }
 
     def onChange = { event ->
-        // TODO Implement code that is executed when any artefact that this plugin is
-        // watching is modified and reloaded. The event contains: event.source,
-        // event.application, event.manager, event.ctx, and event.plugin.
     }
 
     def onConfigChange = { event ->
-        // TODO Implement code that is executed when the project configuration changes.
-        // The event is the same as for 'onChange'.
     }
 }
