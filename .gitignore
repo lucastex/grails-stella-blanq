@@ -5,3 +5,6 @@ grails-stella.launch
 garils-stella-test.launch
 build.xml
 *.tmproj
+.classpath
+.project
+.settings/
