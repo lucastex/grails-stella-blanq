@@ -1,0 +1,15 @@
+<plugin name='grails-stella' version='1.0' grailsVersion='1.1 &gt; *'>
+  <author>Lucas Teixeira</author>
+  <authorEmail>lucastex@gmail.com</authorEmail>
+  <title>Grails-Stella integration</title>
+  <description>\
+Grails plugin for integrating Stella (http://stella.caelum.com.br) framework components.
+</description>
+  <documentation>http://grails.org/plugin/grails-stella</documentation>
+  <resources>
+    <resource>DataSource</resource>
+    <resource>StellaConfig</resource>
+    <resource>UrlMappings</resource>
+  </resources>
+  <dependencies />
+</plugin>
