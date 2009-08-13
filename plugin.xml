@@ -9,7 +9,9 @@ Grails plugin for integrating Stella (http://stella.caelum.com.br) framework com
   <resources>
     <resource>DataSource</resource>
     <resource>UrlMappings</resource>
+    <resource>CNPJFormatterTagLib</resource>
     <resource>CPFFormatterTagLib</resource>
+    <resource>NITFormatterTagLib</resource>
   </resources>
   <dependencies />
 </plugin>
