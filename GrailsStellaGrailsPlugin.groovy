@@ -1,5 +1,6 @@
 import br.com.caelum.grails.stella.constraints.CPFConstraint
 import br.com.caelum.grails.stella.constraints.CNPJConstraint
+import br.com.caelum.grails.stella.constraints.NITConstraint
 import org.codehaus.groovy.grails.validation.ConstrainedProperty
 
 class GrailsStellaGrailsPlugin {
@@ -23,11 +24,12 @@ Grails plugin for integrating Stella (http://stella.caelum.com.br) framework com
 '''
 
     // URL to the plugin's documentation
-    def documentation = "http://grails.org/plugin/grails-stella"
+    def documentation = "http://wiki.github.com/lucastex/grails-stella"
 
     def doWithSpring = {
 		ConstrainedProperty.registerNewConstraint(CPFConstraint.CPF_CONSTRAINT, CPFConstraint.class)
 		ConstrainedProperty.registerNewConstraint(CNPJConstraint.CNPJ_CONSTRAINT, CNPJConstraint.class)
+		ConstrainedProperty.registerNewConstraint(NITConstraint.NIT_CONSTRAINT, NITConstraint.class)
     }
 
     def doWithApplicationContext = { applicationContext ->
