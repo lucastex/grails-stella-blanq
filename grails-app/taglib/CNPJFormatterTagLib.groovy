@@ -10,7 +10,7 @@ class CNPJFormatterTagLib {
 		if (!value)
 			throw new GrailsTagException("Você deve enviar o valor a ser formatado no atributo 'value' da taglib.")
 		
-		return new CNPJFormatter().format(value)
+		out << new CNPJFormatter().format(value)
 	}
 	
 	def unformat = { attrs ->
@@ -18,7 +18,7 @@ class CNPJFormatterTagLib {
 		if (!value)
 			throw new GrailsTagException("Você deve enviar o valor a ser formatado no atributo 'value' da taglib.")
 		
-		return new CNPJFormatter().unformat(value)
+		out << new CNPJFormatter().unformat(value)
 	}
 
 }

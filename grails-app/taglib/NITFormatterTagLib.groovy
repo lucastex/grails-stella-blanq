@@ -10,7 +10,7 @@ class NITFormatterTagLib {
 		if (!value)
 			throw new GrailsTagException("Você deve enviar o valor a ser formatado no atributo 'value' da taglib.")
 		
-		return new NITFormatter().format(value)
+		out << new NITFormatter().format(value)
 	}
 	
 	def unformat = { attrs ->
@@ -18,7 +18,7 @@ class NITFormatterTagLib {
 		if (!value)
 			throw new GrailsTagException("Você deve enviar o valor a ser formatado no atributo 'value' da taglib.")
 		
-		return new NITFormatter().unformat(value)
+		out << new NITFormatter().unformat(value)
 	}
 
 }

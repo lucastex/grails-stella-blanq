@@ -10,7 +10,7 @@ class CPFFormatterTagLib {
 		if (!value)
 			throw new GrailsTagException("Você deve enviar o valor a ser formatado no atributo 'value' da taglib.")
 		
-		return new CPFFormatter().format(value)
+		out << new CPFFormatter().format(value)
 	}
 	
 	def unformat = { attrs ->
@@ -18,7 +18,7 @@ class CPFFormatterTagLib {
 		if (!value)
 			throw new GrailsTagException("Você deve enviar o valor a ser formatado no atributo 'value' da taglib.")
 		
-		return new CPFFormatter().unformat(value)
+		out << new CPFFormatter().unformat(value)
 	}
 
 }
