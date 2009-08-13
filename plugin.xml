@@ -5,10 +5,11 @@
   <description>\
 Grails plugin for integrating Stella (http://stella.caelum.com.br) framework components.
 </description>
-  <documentation>http://grails.org/plugin/grails-stella</documentation>
+  <documentation>http://wiki.github.com/lucastex/grails-stella</documentation>
   <resources>
     <resource>DataSource</resource>
     <resource>UrlMappings</resource>
+    <resource>CPFFormatterTagLib</resource>
   </resources>
   <dependencies />
 </plugin>
