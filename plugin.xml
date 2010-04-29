@@ -1,4 +1,4 @@
-<plugin name='grails-stella' version='1.2' grailsVersion='1.1 &gt; *'>
+<plugin name='stella' version='1.3' grailsVersion='1.1 &gt; *'>
   <author>Lucas Teixeira</author>
   <authorEmail>lucastex@gmail.com</authorEmail>
   <title>Grails-Stella integration</title>
@@ -13,5 +13,10 @@ Grails plugin for integrating Stella (http://stella.caelum.com.br) framework com
     <resource>CPFFormatterTagLib</resource>
     <resource>NITFormatterTagLib</resource>
   </resources>
-  <dependencies />
+  <dependencies>
+    <resolvers>
+      <resolver type='grailsPlugins' name='grailsPlugins' />
+    </resolvers>
+  </dependencies>
+  <behavior />
 </plugin>

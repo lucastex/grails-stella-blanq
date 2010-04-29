@@ -3,20 +3,13 @@ Grails Stella 1.0
 -----------------
 
 Plugin para o Grails que encapsula o framework Stella da Caelum.
-É um framework voltado para facilitar o desenvolvimento de aplicações especializadas para o Brasi.
+É um framework voltado para facilitar o desenvolvimento de aplicações especializadas para o Brasil.
 
 Conheça o framework em: http://stella.caelum.com.br
 
---------
+Veja a documentação das funcionalidades deste plugin em http://wiki.github.com/lucastex/grails-stella
 
-- Funcionalidades já implementadas do Caelum Stella
-- Modo de usar
-- Download e instalação
-- Implementações futuras
 
-- Contato
-	- Lucas Teixeira - @lucastex
-	- blog.lucastex.com 
-	- lucastex@gmail.com
-	
----------
+Lucas Teixeira - @lucastex
+E-mail: lucastex@gmail.com
+blog.lucastex.com - lucastex.com.br 
