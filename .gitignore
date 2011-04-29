@@ -9,3 +9,4 @@ build.xml
 .project
 .settings/
 test/reports/
+target/*
