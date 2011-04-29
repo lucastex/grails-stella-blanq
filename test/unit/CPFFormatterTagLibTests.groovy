@@ -11,11 +11,11 @@ class CPFFormatterTagLibTests extends TagLibUnitTestCase {
 
     void testFormat() {
 		CPFFormatterTagLib taglib = new CPFFormatterTagLib()
-		assertEquals taglib.format(value: "04297060906"), "042.970.609-06"
+		assertEquals taglib.format(value: "04297060906").toString(), "042.970.609-06"
     }
 
     void testUnformat() {
 		CPFFormatterTagLib taglib = new CPFFormatterTagLib()
-		assertEquals taglib.unformat(value: "042.970.609-06"), "04297060906"
+		assertEquals taglib.unformat(value: "042.970.609-06").toString(), "04297060906"
     }
 }
