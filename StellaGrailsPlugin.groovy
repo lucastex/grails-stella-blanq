@@ -5,9 +5,9 @@ import org.codehaus.groovy.grails.validation.ConstrainedProperty
 
 class StellaGrailsPlugin {
     // the plugin version
-    def version =  "1.3"
+    def version =  "1.4"
     // the version or versions of Grails the plugin is designed for
-    def grailsVersion = "1.1 > *"
+    def grailsVersion = "1.3 > *"
     // the other plugins this plugin depends on
     def dependsOn = [:]
     // resources that are excluded from plugin packaging
