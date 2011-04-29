@@ -4,27 +4,23 @@ import br.com.caelum.grails.stella.constraints.NITConstraint
 import org.codehaus.groovy.grails.validation.ConstrainedProperty
 
 class StellaGrailsPlugin {
-    // the plugin version
-    def version =  "1.4"
-    // the version or versions of Grails the plugin is designed for
-    def grailsVersion = "1.3 > *"
-    // the other plugins this plugin depends on
-    def dependsOn = [:]
-    // resources that are excluded from plugin packaging
-    def pluginExcludes = [
-            "grails-app/views/error.gsp"
-    ]
 
-    // TODO Fill in these fields
+    def version =  "1.4"
+    def grailsVersion = "1.3 > *"
+    def dependsOn = [:]
+    def pluginExcludes = ["grails-app/views/error.gsp"]
+
     def author = "Lucas Teixeira"
     def authorEmail = "lucastex@gmail.com"
     def title = "Grails-Stella integration"
-    def description = '''\\
-Grails plugin for integrating Stella (http://stella.caelum.com.br) framework components.
-'''
+    def description = "Grails plugin for integrating Stella (http://stella.caelum.com.br) framework components."
+    def documentation = "http://blanq.github.com/grails-stella"
 
-    // URL to the plugin's documentation
-    def documentation = "http://wiki.github.com/lucastex/grails-stella"
+	def license                  = "APACHE"
+	def organization             = [  name:   "Blanq", url: "http://github.com/blanq" ]
+	def developers               = [[ name:   "Lucas Teixeira", email: "lucastex@gmail.com" ]]
+	def scm                      = [  url:    "https://github.com/blanq/grails-stella" ]
+	def issueManagement          = [  system: "GITHUB", url: "https://github.com/blanq/grails-stella/issues" ]
 
     def doWithSpring = {
 		ConstrainedProperty.registerNewConstraint(CPFConstraint.CPF_CONSTRAINT, CPFConstraint.class)
