@@ -1,0 +1,7 @@
+{code}
+<cpf:format value="00000000000" /> <!-- irá retornar '000.000.000-00' -->
+{code}
+
+{code}
+<cpf:unformat value="000.000.000-00" /> <!-- irá retornar '00000000000' -->
+{code}

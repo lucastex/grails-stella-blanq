@@ -1,0 +1,29 @@
+Para usar a validação por NIT, basta que em sua domain class, dentro da closure de configurações de constraints dela, colocar a diretriz “nit” para o campo que deverá ser validado. A validação pode ser feita com o NIT formatado, ou não.
+
+h3. Validação que espera NIT não formatado
+{code}
+class Pessoa {
+    
+    String nome
+    String nit
+ 
+    static constraints = {
+        nome()
+        nit(nit:true)
+    }
+}
+{code}
+
+h3. Validação que espera NIT formatado
+{code}
+class Pessoa {
+    
+    String nome
+    String nit
+ 
+    static constraints = {
+        nome()
+        nit(nit:[formatted:true])
+    }
+}
+{code}

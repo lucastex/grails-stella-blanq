@@ -1,0 +1,1 @@
+O plugin também traz taglibs que facilitam a exposição dos dados na tela do usuário. Todas as taglibs possuem dois métodos, para formatar, e para retirar a formatação de um número. A sintaxe é semelhante, alterando apenas o namespace da taglib.

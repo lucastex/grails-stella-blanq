@@ -1,0 +1,20 @@
+* *1.4*
+** Atualização para Grails 1.3.x
+** Documentação no novo formato
+** Sources passados para a responsibilidade da "Blanq":http://www.github.com/blanq
+** Dependências agora são baixadas via BuildConfig.groovy ao invés de possuir os jars no lib/ do plugin
+** Geração de boletos bancários 
+
+* *1.3*
+** Atualização para Grails 1.2.2
+
+* *1.2.1*
+** Correção do bug no retorno das taglibs para algumas versões do Grails
+
+* *1.2*
+** Validação de NIT via Domain Constraint
+** Taglibs de formação de CPF, CNPF, NIT
+
+* *1.0*
+** Validação de CPF via Domain Constraint
+** Validação de CNPJ via Domain Constraint

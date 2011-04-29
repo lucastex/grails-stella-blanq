@@ -1,0 +1,10 @@
+O plugin já vem com mensagens de erro no arquivo de mensagens i18n. Apenas dois idiomas são conteplados por enquanto, Inglês (messages.properties) e Português (messages_pt_BR.properties).
+
+Caso queira adicionar outros idiomas, ou alterar as mensagens de erro, as seguintes chaves são usadas:
+
+
+*CPF Inválido:* @default.invalid.cpf.message@
+
+*CNPJ Inválido:* @default.invalid.cnpj.message@
+
+*NIT Inválido:* @default.invalid.nit.message@

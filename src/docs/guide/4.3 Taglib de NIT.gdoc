@@ -1,0 +1,7 @@
+{code}
+<nit:format value="00000000000" /> <!-- irá retornar '000.00000.00-0' -->
+{code}
+
+{code}
+<nit:unformat value="000.00000.00-0" /> <!-- irá retornar '00000000000' -->
+{code}
