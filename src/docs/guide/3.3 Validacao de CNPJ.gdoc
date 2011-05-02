@@ -1,0 +1,29 @@
+Para usar a validação por CNPJ, basta que em sua domain class, dentro da closure de configurações de constraints dela, colocar a diretriz “cnpj” para o campo que deverá ser validado. A validação pode ser feita com o CNPJ formatado, ou não.
+
+h3. Validação que espera CNPJ não formatado
+{code}
+class Empresa {
+    
+    String razaoSocial
+    String cnpj
+
+    static constraints = {
+        razaoSocial()
+        cnpj(cnpj:true)
+    }
+}
+{code}
+
+h3. Validação que espera CNPJ formatado
+{code}
+class Empresa {
+    
+    String razaoSocial
+    String cnpj
+
+    static constraints = {
+        razaoSocial()
+        cnpj(cnpj:[formatted:true])
+    }
+}
+{code}

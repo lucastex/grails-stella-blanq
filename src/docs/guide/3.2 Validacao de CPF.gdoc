@@ -1,0 +1,29 @@
+Para usar a validação por CPF, basta que em sua domain class, dentro da closure de configurações de constraints dela, colocar a diretriz “cpf” para o campo que deverá ser validado. A validação pode ser feita com o CPF formatado, ou não.
+
+h3. Validação que espera CPF não formatado
+{code}
+class Pessoa {
+    
+    String nome
+    String cpf
+
+    static constraints = {
+        nome()
+        cpf(cpf:true)
+    }
+}
+{code}
+
+h3. Validação que espera CPF formatado
+{code}
+class Pessoa {
+    
+    String nome
+    String cpf
+
+    static constraints = {
+        nome()
+        cpf(cpf:[formatted:true])
+    }
+}
+{code}
