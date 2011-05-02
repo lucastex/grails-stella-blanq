@@ -8,7 +8,7 @@ class BoletoBuilderTests extends GrailsUnitTestCase {
 
     protected void setUp() {
         super.setUp()
-		BoletoBuilder.bancos = ["ITAU": br.com.caelum.stella.boleto.bancos.Itau]
+		BoletoBuilder.registerImplementation("Itau",     br.com.caelum.stella.boleto.bancos.Itau)
     }
 
     protected void tearDown() {

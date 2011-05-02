@@ -57,9 +57,9 @@ class BoletoBuilder {
 	
 	public BoletoBuilder(BigDecimal valor, String bancoShortName) {
 		
-		def bancoClassName = bancos[bancoShortName]
+		def bancoClassName = bancos[bancoShortName.toLowerCase()]
 		if (!bancoClassName) {
-			throw new BoletoException("Banco '${bancoShortName}' não disponível")
+			throw new BoletoException("Banco '${bancoShortName}' não disponível".toString())
 		}
 		
 		if (!valor) {
@@ -67,7 +67,7 @@ class BoletoBuilder {
 		}
 		
 		boletoValor = valor
-		boletoBancoClassName = bancos[bancoShortName]
+		boletoBancoClassName = bancoClassName
 	}
 	
 	//closure principal do boleto
@@ -246,6 +246,10 @@ class BoletoBuilder {
 		boleto.withBanco(banco)
 		
 		return boleto
+	}
+	
+	static void registerImplementation(String name, Class implementingClass) {
+		bancos[name.toLowerCase()] = implementingClass
 	}
 	
 }
