@@ -8,7 +8,7 @@ class BoletoBuilderTests extends GrailsUnitTestCase {
 
     protected void setUp() {
         super.setUp()
-		BoletoBuilder.bancos = ["ITAU": br.com.caelum.grails.stella.builder.BoletoBuilder]
+		BoletoBuilder.bancos = ["ITAU": br.com.caelum.stella.boleto.bancos.Itau]
     }
 
     protected void tearDown() {
@@ -20,8 +20,8 @@ class BoletoBuilderTests extends GrailsUnitTestCase {
 		
 		def boletoBuilder = new BoletoBuilder(1000, "ITAU")
 		assertNotNull boletoBuilder
-		assertEquals  "ITAU", boletoBuilder.boletoBancoClassName
 		assertEquals  1000,   boletoBuilder.boletoValor
+		assertEquals  br.com.caelum.stella.boleto.bancos.Itau, boletoBuilder.boletoBancoClassName
 	}
 
     void testErroEmCasoDeBancoInexistente() {
@@ -250,5 +250,110 @@ class BoletoBuilderTests extends GrailsUnitTestCase {
 		assertEquals "00000-000",          boletoBuilder.sacadoCep
 		assertEquals "Sao Paulo",          boletoBuilder.sacadoCidade
 		assertEquals "SP",                 boletoBuilder.sacadoUF
+	}
+	
+	void testAceite() {
+		
+		def random = new Random()
+		def valorAceite = random.nextBoolean()
+		
+		def boletoBuilder = new BoletoBuilder(1000, "ITAU")
+		boletoBuilder.build {
+			datas   { println "hey ho!" }
+			cedente { println "hey ho!" }
+			sacado  { println "hey ho!" }
+			aceite valorAceite
+		}
+		
+		assertEquals valorAceite, boletoBuilder.boletoAceite
+	}
+	
+	void testDocumento() {
+		
+		def boletoBuilder = new BoletoBuilder(1000, "ITAU")
+		boletoBuilder.build {
+			datas   { println "hey ho!" }
+			cedente { println "hey ho!" }
+			sacado  { println "hey ho!" }
+			documento numero: "1234", especie: "R\$"
+		}
+		
+		assertEquals "1234", boletoBuilder.boletoNumeroDocumento
+		assertEquals "R\$", boletoBuilder.boletoEspecieDocumento
+	}
+	
+	void testMoeda() {
+		def boletoBuilder = new BoletoBuilder(1000, "ITAU")
+		boletoBuilder.build {
+			datas   { println "hey ho!" }
+			cedente { println "hey ho!" }
+			sacado  { println "hey ho!" }
+			moeda valor: 1234, quantidade: 1000
+		}
+		
+		assertEquals 1234, boletoBuilder.boletoValorMoeda
+		assertEquals 1000, boletoBuilder.boletoQuantidadeMoeda
+	}
+	
+	void testInformacoes() {
+		
+		def boletoBuilder = new BoletoBuilder(1000, "ITAU")
+		boletoBuilder.build {
+			datas   { println "hey ho!" }
+			cedente { println "hey ho!" }
+			sacado  { println "hey ho!" }
+			informacoes "info1", "info2", "info3"
+		}
+		
+		assertEquals 3, boletoBuilder.boletoInformacoes.size()
+		assertEquals "info1", boletoBuilder.boletoInformacoes[0]
+		assertEquals "info2", boletoBuilder.boletoInformacoes[1]
+		assertEquals "info3", boletoBuilder.boletoInformacoes[2]
+	}
+
+	void testInstrucoes() {
+		
+		def boletoBuilder = new BoletoBuilder(1000, "ITAU")
+		boletoBuilder.build {
+			datas   { println "hey ho!" }
+			cedente { println "hey ho!" }
+			sacado  { println "hey ho!" }
+			instrucoes "instrucao 1", "instrucao 2", "instrucao 3", "instrucao 4"
+		}
+		
+		assertEquals 4, boletoBuilder.boletoInstrucoes.size()
+		assertEquals "instrucao 1", boletoBuilder.boletoInstrucoes[0]
+		assertEquals "instrucao 2", boletoBuilder.boletoInstrucoes[1]
+		assertEquals "instrucao 3", boletoBuilder.boletoInstrucoes[2]
+		assertEquals "instrucao 4", boletoBuilder.boletoInstrucoes[3]
+	}
+	
+	void testLocalPagamentoUmLocal() {
+		
+		def boletoBuilder = new BoletoBuilder(1000, "ITAU")
+		boletoBuilder.build {
+			datas   { println "hey ho!" }
+			cedente { println "hey ho!" }
+			sacado  { println "hey ho!" }
+			pagamento "Pagável em qualquer agência bancária até o vencimento"
+		}
+		
+		assertEquals 1, boletoBuilder.boletoLocaisPagamento.size()
+		assertEquals "Pagável em qualquer agência bancária até o vencimento", boletoBuilder.boletoLocaisPagamento[0]
+	}
+
+	void testLocalPagamentoDoisLocais() {
+		
+		def boletoBuilder = new BoletoBuilder(1000, "ITAU")
+		boletoBuilder.build {
+			datas   { println "hey ho!" }
+			cedente { println "hey ho!" }
+			sacado  { println "hey ho!" }
+			pagamento "Pagável em qualquer agência bancária até o vencimento", "Não receber após vencimento"
+		}
+		
+		assertEquals 2, boletoBuilder.boletoLocaisPagamento.size()
+		assertEquals "Pagável em qualquer agência bancária até o vencimento", boletoBuilder.boletoLocaisPagamento[0]
+		assertEquals "Não receber após vencimento", boletoBuilder.boletoLocaisPagamento[1]
 	}
 }
