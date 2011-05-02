@@ -21,4 +21,8 @@ grails.project.dependency.resolution = {
 		runtime 'br.com.caelum.stella:caelum-stella-boleto:1.2'
     }
 
+	plugins {
+		build   ':maven-publisher:0.8.1'
+	}
+
 }
