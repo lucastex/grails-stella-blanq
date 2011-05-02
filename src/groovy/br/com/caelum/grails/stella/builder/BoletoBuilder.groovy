@@ -154,6 +154,7 @@ class BoletoBuilder {
 	private void cep(String cep)                  {  sacadoCep       = cep }
 	private void cidade(String cidade, String uf) { (sacadoCidade, sacadoUF) = [cidade, uf] }	
 	
+	//outras informacoes, referentes ao boleto
 	private void aceite(boolean aceite)        { boletoAceite = aceite }
 	private void documento(Map documentoProps) { (boletoNumeroDocumento, boletoEspecieDocumento) = [documentoProps['numero'], documentoProps['especie']] }
 	private void moeda(Map moedaProps)         { (boletoValorMoeda, boletoQuantidadeMoeda)       = [moedaProps['valor'], moedaProps['quantidade']] }
