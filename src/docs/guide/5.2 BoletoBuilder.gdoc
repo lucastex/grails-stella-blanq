@@ -63,7 +63,7 @@ h3. Datas do boleto
 
 As datas que devem ser colocadas no boleto, são sempre 3. 
 
-* Vencimento
+* Vencimento - a *data de vencimento* é obrigatória no preenchimento do boleto
 * Processamento
 * Documento
 
@@ -91,7 +91,7 @@ h3. Dados do sacado (destinatário)
 h3. Outras configurações do boleto
 
 * aceite: deve ser true ou false, valor padrão é false
-* documento: Dados para que você identifique o pagamento do boleto, é um map com duas chaves: *numero* que representa o número do documento, e *especie* para caso você queira preencher o campo "Especie do documento" do boleto.
+* documento: Dados para que você identifique o pagamento do boleto, é um map com duas chaves: *numero* que representa o número do documento, e *especie* para caso você queira preencher o campo "Especie do documento" do boleto. - o *número do documento* é obrigatório no preenchimento do boleto
 * pagamento: recebe um ou dois argumentos do tipo @String@ que irão identificar o local de pagamento do seu boleto
 * instrucoes: até 5 argumentos de texto que irão preencher o campo instruções do boleto
 * informacoes: também 5 argumentos de texto para informações gerais do boleto. Estas informações não aparecem dentro do boleto, e sim fora do mesmo, ainda na imagem/pdf gerada.

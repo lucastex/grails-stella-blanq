@@ -167,6 +167,13 @@ class BoletoBuilder {
 	//validacao de campos obrigatorios e cosntraints do boleto
 	private void validaCamposObrigatorios() {
 		
+		if (!datasVencimento) {
+			throw new BoletoException("Você não informou a data de vencimento do boleto. Consulte o guia do plugin para conhecer a maneira correta de se criar boletos.")
+		}
+		
+		if (!boletoNumeroDocumento) {
+			throw new BoletoException("Você deve informar o número do documento do boleto. Consulte o guia do plugin para conhecer a maneira correta de se criar boletos.")
+		}
 	}
 	
 	private def buildDatas() {
