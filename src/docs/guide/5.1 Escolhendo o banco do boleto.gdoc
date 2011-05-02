@@ -1,0 +1,21 @@
+Atualmente, na versão 1.2 do Stella, os bancos disponíveis são:
+
+* Banco Do Brasil @(br.com.caelum.stella.boleto.bancos.BancoDoBrasil)@
+* Bradesco @(br.com.caelum.stella.boleto.bancos.Bradesco)@
+* Caixa @(br.com.caelum.stella.boleto.bancos.Caixa)@
+* Real @(br.com.caelum.stella.boleto.bancos.Real)@
+* Itau @(br.com.caelum.stella.boleto.bancos.Itau)@
+
+Se você precisar utilizar um banco que não está descrito e implementado, você pode criar uma classe que implemente a interface @br.com.caelum.stella.boleto.Banco@. 
+
+Após implementar a classe, você deve registrá-la no plugin em algum momento de sua aplicação (o recomendado é no @Bootstrap.groovy@), da seguinte maneira:
+
+{code}
+import br.com.caelum.grails.stella.builder.BoletoBuilder
+
+(...)
+
+BoletoBuilder.registerImplementation("Santander", minha.implementacao.para.BoletoSantander)
+{code}
+
+Passando sempre o nome do banco (que será usado quando você desejar um boleto deste banco), e a classe que implementa a interface.

@@ -1,0 +1,36 @@
+O plugin sempre devolve um array de *byte* com o conteúdo do boleto. Desta maneira você pode gravar o boleto em um arquivo em disco, devolver diretamente no response do usuário (mais comum), ou manipulá-lo também como quiser. 
+O boleto pode ser renderizado por padrão de duas maneiras, em PDF ou PNG.
+
+h3. Renderizando em PDF
+
+{code}
+def boleto = new BoletoBuilder(1500, "itau")
+boleto.build {
+    (...)
+}
+def bytes = boleto.pdf()
+{code}
+
+h3. Renderizando em PNG
+
+{code}
+def boleto = new BoletoBuilder(1500, "itau")
+boleto.build {
+    (...)
+}
+def bytes = boleto.png()
+{code}
+
+h3. Exemplo do boleto no response
+
+Caso queira devolver o boleto no response diretamente para o usuário, segue um exemplo de como fazer:
+
+{code}
+def boleto = new BoletoBuilder(1500, "itau")
+boleto.build {
+    (...)
+}
+def bytes = boleto.pdf()
+response.setContentType("application/pdf")
+response.outputStream << bytes
+{code}

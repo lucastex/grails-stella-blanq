@@ -1,0 +1,97 @@
+@BoletoBuilder@ é a classe responsável pela geração de boletos. Segue um exemplo de utilização em um controller:
+
+{code}
+import br.com.caelum.grails.stella.builder.BoletoBuilder
+
+class BoletoController {
+
+    def index = { 
+    
+        def boleto = new BoletoBuilder(1500, "itau")
+        boleto.build {
+            datas {
+                vencimento (new Date() + 5)
+                documento new Date()
+                processamento new Date()
+            }
+            cedente {
+                cedente       "Loja de ferramentas"
+                agencia       1001, 'x'
+                conta         1002,  3
+                convenio      10
+                carteira      20
+                operacao      30
+                nossoNumero   15000, 1
+            }
+            sacado {
+                nome          "Nome do cliente"
+                cpf           "000.000.000-00"
+                endereco      "Rua sem nome, 1200 - apto 1001"
+                bairro         "Centro"
+                cep           "00000-000"
+                cidade        "São Paulo", "SP"
+            }
+            aceite false
+            documento numero: "12345", especie: "XXX"
+            
+            pagamento  "Pagar até o vencimento", 
+                       "Não receber após a data de vencimento"
+            
+            instrucoes "Não cobrar juros antes do vencimento", 
+                       "Pagamento referente ao uso do sistema",
+                       "Mensalidade de julho",
+                       "Código do cliente: 12345"
+            
+            informacoes "Caro cliente, não se esqueca de pagar esta conta",
+                        "Lembre-se que após 20 dias, seu acesso ao sistema irá ser restringido",
+                        "e após 60 dias, seu sistema será totalmente desligado"            
+        }
+        
+        def bytes = boleto.pdf()
+        response.setContentType("application/pdf")
+        response.outputStream << bytes
+    }
+}
+{code}
+
+h3. Parâmetros de criação do BoletoBuilder
+
+Para criar o boleto, dois parâmetros são necessários, o valor do boleto e também o banco que será utilizado para este boleto. 
+Mais detalhes do banco, no item 5.1 deste guia.
+
+h3. Datas do boleto
+
+As datas que devem ser colocadas no boleto, são sempre 3. 
+
+* Vencimento
+* Processamento
+* Documento
+
+Para *data do documento* e *data do processamento* o valor default é a data atual do sistema.
+
+h3. Dados do emissor do boleto (remetente)
+
+São dados que te identificam perante o banco e também no boleto
+
+* 'cedente': seu nome ou identificação
+* agencia: sua agencia bancária, número e digito verificador (este último pode ser um número ou um char)
+* conta: sua conta corrente, composta também por número e digito verificador (como na agência)
+* convenio, carteira, operação e nosso número: dados de identificação de sua emissão junto ao banco. (o nosso número segue o mesmo padrão de número e DV da agência e conta)
+
+h3. Dados do sacado (destinatário)
+
+* nome: Nome do seu cliente
+* cpf: Documento físico (CPF) do seu cliente (usado quando cobrança para PF)
+* cnpj: Documento jurídico (CNPJ) do seu cliente (usado quando cobrança para PJ)
+* endereco: endereco de cobranca
+* bairro: bairro do endereco
+* cep: cep postal
+* cidade: cidade dele, composta por [ "cidade", "estado" ]
+
+h3. Outras configurações do boleto
+
+* aceite: deve ser true ou false, valor padrão é false
+* documento: Dados para que você identifique o pagamento do boleto, é um map com duas chaves: *numero* que representa o número do documento, e *especie* para caso você queira preencher o campo "Especie do documento" do boleto.
+* pagamento: recebe um ou dois argumentos do tipo @String@ que irão identificar o local de pagamento do seu boleto
+* instrucoes: até 5 argumentos de texto que irão preencher o campo instruções do boleto
+* informacoes: também 5 argumentos de texto para informações gerais do boleto. Estas informações não aparecem dentro do boleto, e sim fora do mesmo, ainda na imagem/pdf gerada.
