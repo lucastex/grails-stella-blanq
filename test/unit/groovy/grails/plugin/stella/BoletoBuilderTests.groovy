@@ -88,5 +88,167 @@ class BoletoBuilderTests extends GrailsUnitTestCase {
 			}
 		}
 	}
+	
+	void testAtribuicaoDeValoresDasDatas() {
 
+		//datas
+		def dataDeVencimento    = new Date() + 5
+		def dataDoDocumento     = new Date()
+		def dataDoProcessamento = new Date()
+
+		def boletoBuilder = new BoletoBuilder(1000, "ITAU")
+		boletoBuilder.build {
+			datas {
+				vencimento    dataDeVencimento
+				documento     dataDoDocumento
+				processamento dataDoProcessamento
+			}
+			cedente {
+				println "hey ho!"
+			}
+			sacado {
+				println "hey ho!"
+			}
+		}
+		
+		assertEquals dataDeVencimento,    boletoBuilder.datasVencimento
+		assertEquals dataDoDocumento,     boletoBuilder.datasDocumento
+		assertEquals dataDoProcessamento, boletoBuilder.datasProcessamento
+	}
+	
+	void testAtribuicaoDeValoresCedenteComDvTipoString() {
+		
+		def boletoBuilder = new BoletoBuilder(1000, "ITAU")
+		boletoBuilder.build {
+			datas {
+				println "hey ho!"
+			}
+			cedente {
+				cedente     "Lucas"
+				convenio    100
+				carteira    200
+				operacao    300
+				agencia     400, 'x'
+				conta       500, 'y'
+				nossoNumero 600, 'z'
+			}
+			sacado {
+				println "hey ho!"
+			}
+		}
+		
+		assertEquals "Lucas", boletoBuilder.cedenteNome
+		assertEquals 100, boletoBuilder.cedenteConvenio
+		assertEquals 200, boletoBuilder.cedenteCarteira
+		assertEquals 300, boletoBuilder.cedenteOperacao
+		
+		assertEquals 400, boletoBuilder.cedenteNrAgencia
+		assertEquals 'x', boletoBuilder.cedenteDvAgencia		
+		assertEquals java.lang.Character, boletoBuilder.cedenteDvAgencia.getClass()
+		
+		assertEquals 500, boletoBuilder.cedenteNrConta
+		assertEquals 'y', boletoBuilder.cedenteDvConta		
+		assertEquals java.lang.Character, boletoBuilder.cedenteDvConta.getClass()
+		
+		assertEquals 600, boletoBuilder.cedenteNrNossoNumero
+		assertEquals 'z', boletoBuilder.cedenteDvNossoNumero
+		assertEquals java.lang.Character, boletoBuilder.cedenteDvNossoNumero.getClass()
+	}	
+
+	void testAtribuicaoDeValoresCedenteComDvTipoNumero() {
+		
+		def boletoBuilder = new BoletoBuilder(1000, "ITAU")
+		boletoBuilder.build {
+			datas {
+				println "hey ho!"
+			}
+			cedente {
+				cedente     "Lucas"
+				convenio    100
+				carteira    200
+				operacao    300
+				agencia     400, 1
+				conta       500, 2
+				nossoNumero 600, 3
+			}
+			sacado {
+				println "hey ho!"
+			}
+		}
+		
+		assertEquals "Lucas", boletoBuilder.cedenteNome
+		assertEquals 100, boletoBuilder.cedenteConvenio
+		assertEquals 200, boletoBuilder.cedenteCarteira
+		assertEquals 300, boletoBuilder.cedenteOperacao
+		
+		assertEquals 400, boletoBuilder.cedenteNrAgencia
+		assertEquals '1', boletoBuilder.cedenteDvAgencia		
+		assertEquals java.lang.Character, boletoBuilder.cedenteDvAgencia.getClass()
+		
+		assertEquals 500, boletoBuilder.cedenteNrConta
+		assertEquals '2', boletoBuilder.cedenteDvConta		
+		assertEquals java.lang.Character, boletoBuilder.cedenteDvConta.getClass()
+		
+		assertEquals 600, boletoBuilder.cedenteNrNossoNumero
+		assertEquals '3', boletoBuilder.cedenteDvNossoNumero
+		assertEquals java.lang.Character, boletoBuilder.cedenteDvNossoNumero.getClass()
+	}	
+	
+	void testAtribuicaoDeValoresSacadoComCPF() {
+		
+		def boletoBuilder = new BoletoBuilder(1000, "ITAU")
+		boletoBuilder.build {
+			datas {
+				println "hey ho!"
+			}
+			cedente {
+				println "hey ho!"
+			}
+			sacado {
+				nome     "Lucas"
+				cpf      "000.000.000-00"
+				endereco "Rua xxx, 123"
+				bairro   "Centro"
+				cep      "00000-000"
+				cidade   "Sao Paulo", "SP"
+			}
+		}
+		
+		assertEquals "Lucas",          boletoBuilder.sacadoNome
+		assertEquals "000.000.000-00", boletoBuilder.sacadoDocumento
+		assertEquals "Rua xxx, 123",   boletoBuilder.sacadoEndereco
+		assertEquals "Centro",         boletoBuilder.sacadoBairro
+		assertEquals "00000-000",      boletoBuilder.sacadoCep
+		assertEquals "Sao Paulo",      boletoBuilder.sacadoCidade
+		assertEquals "SP",             boletoBuilder.sacadoUF
+	}
+
+	void testAtribuicaoDeValoresSacadoComCNPJ() {
+		
+		def boletoBuilder = new BoletoBuilder(1000, "ITAU")
+		boletoBuilder.build {
+			datas {
+				println "hey ho!"
+			}
+			cedente {
+				println "hey ho!"
+			}
+			sacado {
+				nome     "Lucas"
+				cnpj     "00.000.000/0000-00"
+				endereco "Rua xxx, 123"
+				bairro   "Centro"
+				cep      "00000-000"
+				cidade   "Sao Paulo", "SP"
+			}
+		}
+		
+		assertEquals "Lucas",              boletoBuilder.sacadoNome
+		assertEquals "00.000.000/0000-00", boletoBuilder.sacadoDocumento
+		assertEquals "Rua xxx, 123",       boletoBuilder.sacadoEndereco
+		assertEquals "Centro",             boletoBuilder.sacadoBairro
+		assertEquals "00000-000",          boletoBuilder.sacadoCep
+		assertEquals "Sao Paulo",          boletoBuilder.sacadoCidade
+		assertEquals "SP",                 boletoBuilder.sacadoUF
+	}
 }

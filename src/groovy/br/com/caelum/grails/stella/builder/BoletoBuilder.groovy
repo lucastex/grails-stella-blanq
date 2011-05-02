@@ -61,7 +61,7 @@ class BoletoBuilder {
 		if (!mainClosure) {
 			throw new BoletoException("Você não informou os dados do boleto. Consulte o guia do plugin para conhecer a maneira correta de se criar boletos.")
 		}
-		
+		mainClosure.delegate = this
 		mainClosure()
 	}
 	
@@ -71,7 +71,7 @@ class BoletoBuilder {
 		if (!datasClosure) {
 			throw new BoletoException("Você não informou as datas do boleto. Consulte o guia do plugin para conhecer a maneira correta de se criar boletos.")
 		}
-		
+		datasClosure.delegate = this
 		datasClosure()
 	}
 
@@ -81,7 +81,7 @@ class BoletoBuilder {
 		if (!cedenteClosure) {
 			throw new BoletoException("Você não informou os dados do cedente do boleto. Consulte o guia do plugin para conhecer a maneira correta de se criar boletos.")
 		}
-		
+		cedenteClosure.delegate = this
 		cedenteClosure()
 	}
 
@@ -91,7 +91,34 @@ class BoletoBuilder {
 		if (!sacadoClosure) {
 			throw new BoletoException("Você não informou os dados do sacado do boleto. Consulte o guia do plugin para conhecer a maneira correta de se criar boletos.")
 		}
-		
+		sacadoClosure.delegate = this
 		sacadoClosure()
 	}
+	
+	//metodos para setar atributos de datas
+	void vencimento(Date date)    { datasVencimento    = date }
+	void documento(Date date)     { datasDocumento     = date }
+	void processamento(Date date) { datasProcessamento = date }
+	
+	//metodos para setar atributos do cedente
+	void cedente(String cedente)         {  cedenteNome     = cedente }
+	void convenio(long convenio)         {  cedenteConvenio = convenio }
+	void carteira(int carteira)          {  cedenteCarteira = carteira }
+	void operacao(int operacao)          {  cedenteOperacao = operacao }
+	void agencia(long nr, String dv)     { (cedenteNrAgencia,     cedenteDvAgencia)       = [nr, (char) (dv[0])] }
+	void agencia(long nr, int dv)        { (cedenteNrAgencia,     cedenteDvAgencia)       = [nr, (char) "${dv}"] }
+	void conta(long nr, String dv)       { (cedenteNrConta,       cedenteDvConta)         = [nr, (char) (dv[0])] }
+	void conta(long nr, int dv)          { (cedenteNrConta,       cedenteDvConta)         = [nr, (char) "${dv}"] }
+	void nossoNumero(long nr, String dv) { (cedenteNrNossoNumero, cedenteDvNossoNumero)   = [nr, (char) (dv[0])] }
+	void nossoNumero(long nr, int dv)    { (cedenteNrNossoNumero, cedenteDvNossoNumero)   = [nr, (char) "${dv}"] }
+    
+	//metodos para setar atributos do sacado
+	void nome(String nome)                {  sacadoNome      = nome }
+	void cpf(String cpf)                  {  sacadoDocumento = cpf }
+	void cnpj(String cnpj)                {  sacadoDocumento = cnpj }
+	void endereco(String endereco)        {  sacadoEndereco  = endereco }
+	void bairro(String bairro)            {  sacadoBairro    = bairro }
+	void cep(String cep)                  {  sacadoCep       = cep }
+	void cidade(String cidade, String uf) { (sacadoCidade, sacadoUF) = [cidade, uf] }	
+
 }
