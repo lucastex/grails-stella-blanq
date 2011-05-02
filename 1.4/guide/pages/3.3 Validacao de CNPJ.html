@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+        <title>3.3 Validacao de CNPJ</title>
+        <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" title="Ref" charset="utf-8"/>
+    </head>
+    <body class="body">
+    Para usar a validação por CNPJ, basta que em sua domain class, dentro da closure de configurações de constraints dela, colocar a diretriz “cnpj” para o campo que deverá ser validado. A validação pode ser feita com o CNPJ formatado, ou não.<p class="paragraph"/><h3>Validação que espera CNPJ não formatado</h3>
+<div class="code"><pre>class Empresa &#123;<p class="paragraph"/>    <span class="java&#45;object">String</span> razaoSocial
+    <span class="java&#45;object">String</span> cnpj<p class="paragraph"/>    <span class="java&#45;keyword">static</span> constraints = &#123;
+        razaoSocial()
+        cnpj(cnpj:<span class="java&#45;keyword">true</span>)
+    &#125;
+&#125;</pre></div><p class="paragraph"/><h3>Validação que espera CNPJ formatado</h3>
+<div class="code"><pre>class Empresa &#123;<p class="paragraph"/>    <span class="java&#45;object">String</span> razaoSocial
+    <span class="java&#45;object">String</span> cnpj<p class="paragraph"/>    <span class="java&#45;keyword">static</span> constraints = &#123;
+        razaoSocial()
+        cnpj(cnpj:&#91;formatted:<span class="java&#45;keyword">true</span>&#93;)
+    &#125;
+&#125;</pre></div>
+
+    </body>
+</html>

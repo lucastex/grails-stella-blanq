@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+        <title>5.3 Renderizando o boleto</title>
+        <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" title="Ref" charset="utf-8"/>
+    </head>
+    <body class="body">
+    O plugin sempre devolve um array de <strong class="bold">byte</strong> com o conteúdo do boleto. Desta maneira você pode gravar o boleto em um arquivo em disco, devolver diretamente no response do usuário (mais comum), ou manipulá-lo também como quiser. 
+O boleto pode ser renderizado por padrão de duas maneiras, em PDF ou PNG.<p class="paragraph"/><h3>Renderizando em PDF</h3><p class="paragraph"/><div class="code"><pre>def boleto = <span class="java&#45;keyword">new</span> BoletoBuilder(1500, <span class="java&#45;quote">"itau"</span>)
+boleto.build &#123;
+    (...)
+&#125;
+def bytes = boleto.pdf()</pre></div><p class="paragraph"/><h3>Renderizando em PNG</h3><p class="paragraph"/><div class="code"><pre>def boleto = <span class="java&#45;keyword">new</span> BoletoBuilder(1500, <span class="java&#45;quote">"itau"</span>)
+boleto.build &#123;
+    (...)
+&#125;
+def bytes = boleto.png()</pre></div><p class="paragraph"/><h3>Exemplo do boleto no response</h3><p class="paragraph"/>Caso queira devolver o boleto no response diretamente para o usuário, segue um exemplo de como fazer:<p class="paragraph"/><div class="code"><pre>def boleto = <span class="java&#45;keyword">new</span> BoletoBuilder(1500, <span class="java&#45;quote">"itau"</span>)
+boleto.build &#123;
+    (...)
+&#125;
+def bytes = boleto.pdf()
+response.setContentType(<span class="java&#45;quote">"application/pdf"</span>)
+response.outputStream &#60;&#60; bytes</pre></div>
+
+    </body>
+</html>

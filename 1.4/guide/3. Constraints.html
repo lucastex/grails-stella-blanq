@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+        <title>3. Constraints</title>
+        <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" title="Ref" charset="utf-8"/>
+    </head>
+    <body class="body">
+    <h1><a name="3. Constraints">3. Constraints</a></h1>O plugin adiciona constraints de validação para que você possa usar em suas Domain Classes.<h2><a name="3.1 Validacao de NIT">3.1 Validacao de NIT</a></h2>Para usar a validação por NIT, basta que em sua domain class, dentro da closure de configurações de constraints dela, colocar a diretriz “nit” para o campo que deverá ser validado. A validação pode ser feita com o NIT formatado, ou não.<p class="paragraph"/><h3>Validação que espera NIT não formatado</h3>
+<div class="code"><pre>class Pessoa &#123;<p class="paragraph"/>    <span class="java&#45;object">String</span> nome
+    <span class="java&#45;object">String</span> nit<p class="paragraph"/>    <span class="java&#45;keyword">static</span> constraints = &#123;
+        nome()
+        nit(nit:<span class="java&#45;keyword">true</span>)
+    &#125;
+&#125;</pre></div><p class="paragraph"/><h3>Validação que espera NIT formatado</h3>
+<div class="code"><pre>class Pessoa &#123;<p class="paragraph"/>    <span class="java&#45;object">String</span> nome
+    <span class="java&#45;object">String</span> nit<p class="paragraph"/>    <span class="java&#45;keyword">static</span> constraints = &#123;
+        nome()
+        nit(nit:&#91;formatted:<span class="java&#45;keyword">true</span>&#93;)
+    &#125;
+&#125;</pre></div>
+<h2><a name="3.2 Validacao de CPF">3.2 Validacao de CPF</a></h2>Para usar a validação por CPF, basta que em sua domain class, dentro da closure de configurações de constraints dela, colocar a diretriz “cpf” para o campo que deverá ser validado. A validação pode ser feita com o CPF formatado, ou não.<p class="paragraph"/><h3>Validação que espera CPF não formatado</h3>
+<div class="code"><pre>class Pessoa &#123;<p class="paragraph"/>    <span class="java&#45;object">String</span> nome
+    <span class="java&#45;object">String</span> cpf<p class="paragraph"/>    <span class="java&#45;keyword">static</span> constraints = &#123;
+        nome()
+        cpf(cpf:<span class="java&#45;keyword">true</span>)
+    &#125;
+&#125;</pre></div><p class="paragraph"/><h3>Validação que espera CPF formatado</h3>
+<div class="code"><pre>class Pessoa &#123;<p class="paragraph"/>    <span class="java&#45;object">String</span> nome
+    <span class="java&#45;object">String</span> cpf<p class="paragraph"/>    <span class="java&#45;keyword">static</span> constraints = &#123;
+        nome()
+        cpf(cpf:&#91;formatted:<span class="java&#45;keyword">true</span>&#93;)
+    &#125;
+&#125;</pre></div>
+<h2><a name="3.3 Validacao de CNPJ">3.3 Validacao de CNPJ</a></h2>Para usar a validação por CNPJ, basta que em sua domain class, dentro da closure de configurações de constraints dela, colocar a diretriz “cnpj” para o campo que deverá ser validado. A validação pode ser feita com o CNPJ formatado, ou não.<p class="paragraph"/><h3>Validação que espera CNPJ não formatado</h3>
+<div class="code"><pre>class Empresa &#123;<p class="paragraph"/>    <span class="java&#45;object">String</span> razaoSocial
+    <span class="java&#45;object">String</span> cnpj<p class="paragraph"/>    <span class="java&#45;keyword">static</span> constraints = &#123;
+        razaoSocial()
+        cnpj(cnpj:<span class="java&#45;keyword">true</span>)
+    &#125;
+&#125;</pre></div><p class="paragraph"/><h3>Validação que espera CNPJ formatado</h3>
+<div class="code"><pre>class Empresa &#123;<p class="paragraph"/>    <span class="java&#45;object">String</span> razaoSocial
+    <span class="java&#45;object">String</span> cnpj<p class="paragraph"/>    <span class="java&#45;keyword">static</span> constraints = &#123;
+        razaoSocial()
+        cnpj(cnpj:&#91;formatted:<span class="java&#45;keyword">true</span>&#93;)
+    &#125;
+&#125;</pre></div>
+<h2><a name="3.4 Mensagens de erro (i18n)">3.4 Mensagens de erro (i18n)</a></h2>O plugin já vem com mensagens de erro no arquivo de mensagens i18n. Apenas dois idiomas são conteplados por enquanto, Inglês (messages.properties) e Português (messages_pt_BR.properties).<p class="paragraph"/>Caso queira adicionar outros idiomas, ou alterar as mensagens de erro, as seguintes chaves são usadas:<p class="paragraph"/>
+<strong class="bold">CPF Inválido:</strong> <code>default.invalid.cpf.message</code><p class="paragraph"/><strong class="bold">CNPJ Inválido:</strong> <code>default.invalid.cnpj.message</code><p class="paragraph"/><strong class="bold">NIT Inválido:</strong> <code>default.invalid.nit.message</code>
+    </body>
+</html>

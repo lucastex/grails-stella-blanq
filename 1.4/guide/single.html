@@ -1,0 +1,194 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Grails Stella Plugin 1.4 - Reference Documentation</title>
+        <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" title="Style" charset="utf-8"/>
+        <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8" />
+    </head>
+    <body class="body">
+        <div id="header">
+            <div class="images"><br/><br/>
+                <a href="http://grails.org" target="_blank"><img alt="The Grails Framework" src="../img/grails.png" border="0"/></a>
+                <span style="right:30px; top:20px; position:absolute;">
+                    <a href="../index.html" target="_top">Frames</a> | <a href="index.html" target="_top">No Frames</a><br/><br/>
+                    <a href="http://springsource.com" target="_blank"><img alt="SpringSource - A Division of VMware" src="../img/springsource-logo.png" border="0"/></a>
+                </span>
+            </div>
+            <div class="message">grails-stella</div>
+            <h1>Grails Stella Plugin - Reference Documentation</h1>
+            <p><strong>Authors:</strong> Lucas Teixeira</p>
+            <p><strong>Version:</strong> 1.4</p>
+            <em></em>
+        </div>
+
+        <div id="toc">
+            <h2>Table of Contents</h2>
+            <div class="tocItem" style="margin-left:0px"><a href="#1. Proposito">1. Proposito</a></div><div class="tocItem" style="margin-left:0px"><a href="#2. Instalacao e codigos fonte">2. Instalacao e codigos fonte</a></div><div class="tocItem" style="margin-left:0px"><a href="#3. Constraints">3. Constraints</a></div><div class="tocItem" style="margin-left:10px"><a href="#3.1 Validacao de NIT">3.1 Validacao de NIT</a></div><div class="tocItem" style="margin-left:10px"><a href="#3.2 Validacao de CPF">3.2 Validacao de CPF</a></div><div class="tocItem" style="margin-left:10px"><a href="#3.3 Validacao de CNPJ">3.3 Validacao de CNPJ</a></div><div class="tocItem" style="margin-left:10px"><a href="#3.4 Mensagens de erro (i18n)">3.4 Mensagens de erro (i18n)</a></div><div class="tocItem" style="margin-left:0px"><a href="#4. Taglibs">4. Taglibs</a></div><div class="tocItem" style="margin-left:10px"><a href="#4.1 Taglib de CPF">4.1 Taglib de CPF</a></div><div class="tocItem" style="margin-left:10px"><a href="#4.2 Taglib de CNPJ">4.2 Taglib de CNPJ</a></div><div class="tocItem" style="margin-left:10px"><a href="#4.3 Taglib de NIT">4.3 Taglib de NIT</a></div><div class="tocItem" style="margin-left:0px"><a href="#5. Geracao de boletos bancarios">5. Geracao de boletos bancarios</a></div><div class="tocItem" style="margin-left:10px"><a href="#5.1 Escolhendo o banco do boleto">5.1 Escolhendo o banco do boleto</a></div><div class="tocItem" style="margin-left:10px"><a href="#5.2 BoletoBuilder">5.2 BoletoBuilder</a></div><div class="tocItem" style="margin-left:10px"><a href="#5.3 Renderizando o boleto">5.3 Renderizando o boleto</a></div><div class="tocItem" style="margin-left:0px"><a href="#6. Changelog">6. Changelog</a></div><div class="tocItem" style="margin-left:0px"><a href="#7. Roadmap">7. Roadmap</a></div>
+        </div>
+        <div id="content">
+            <h1><a name="1. Proposito">1. Proposito</a></h1>A idéia de escrever este plugin, foi para facilitar algumas aplicações Grails voltadas para o mercado / usuários brasileiros, assim como o <a href="http://stella.caelum.com.br" target="blank">Caelum Stella</a> facilita para os projetos em Java.<p class="paragraph"/><blockquote class="note">
+Os títulos dos arquivos estão todos sem acentos, em virtude do 'github pages' (onde está esta documentação), não ter suporte a isto. Me desculpem.
+</blockquote><h1><a name="2. Instalacao e codigos fonte">2. Instalacao e codigos fonte</a></h1><h2></h2>
+Para instalar o plugin em aplicações com versão do Grails posteriores a 1.3.0, basta adicioná-lo como dependência em seu <code>BuildConfig.groovy</code><p class="paragraph"/><div class="code"><pre>plugins &#123;
+    compile ':stella:xx'
+&#125;</pre></div><p class="paragraph"/>Substitua o <strong class="bold">xx</strong> pela versão que deseja instalar. (a partir da versão 1.4 do plugin)<p class="paragraph"/>Para aplicações com Grails anterior a 1.3.0, você precisa instalar a última versão específica do plugin<p class="paragraph"/><div class="code"><pre>grails install&#45;plugin stella 1.3</pre></div><p class="paragraph"/>As novas funcionalidades do plugin, adicionadas a partir da versão 1.4 não estarão disponíveis para este branch antigo.<p class="paragraph"/><h2>Códigos fonte</h2><p class="paragraph"/>Caso você queira contribuir, colaborar ou apenas conhecer o código fonte do projeto, basta visitar o <a href="http://github.com/blanq/grails-stella" target="blank">repositório</a> no github<h1><a name="3. Constraints">3. Constraints</a></h1>O plugin adiciona constraints de validação para que você possa usar em suas Domain Classes.<h2><a name="3.1 Validacao de NIT">3.1 Validacao de NIT</a></h2>Para usar a validação por NIT, basta que em sua domain class, dentro da closure de configurações de constraints dela, colocar a diretriz “nit” para o campo que deverá ser validado. A validação pode ser feita com o NIT formatado, ou não.<p class="paragraph"/><h3>Validação que espera NIT não formatado</h3>
+<div class="code"><pre>class Pessoa &#123;<p class="paragraph"/>    <span class="java&#45;object">String</span> nome
+    <span class="java&#45;object">String</span> nit<p class="paragraph"/>    <span class="java&#45;keyword">static</span> constraints = &#123;
+        nome()
+        nit(nit:<span class="java&#45;keyword">true</span>)
+    &#125;
+&#125;</pre></div><p class="paragraph"/><h3>Validação que espera NIT formatado</h3>
+<div class="code"><pre>class Pessoa &#123;<p class="paragraph"/>    <span class="java&#45;object">String</span> nome
+    <span class="java&#45;object">String</span> nit<p class="paragraph"/>    <span class="java&#45;keyword">static</span> constraints = &#123;
+        nome()
+        nit(nit:&#91;formatted:<span class="java&#45;keyword">true</span>&#93;)
+    &#125;
+&#125;</pre></div>
+<h2><a name="3.2 Validacao de CPF">3.2 Validacao de CPF</a></h2>Para usar a validação por CPF, basta que em sua domain class, dentro da closure de configurações de constraints dela, colocar a diretriz “cpf” para o campo que deverá ser validado. A validação pode ser feita com o CPF formatado, ou não.<p class="paragraph"/><h3>Validação que espera CPF não formatado</h3>
+<div class="code"><pre>class Pessoa &#123;<p class="paragraph"/>    <span class="java&#45;object">String</span> nome
+    <span class="java&#45;object">String</span> cpf<p class="paragraph"/>    <span class="java&#45;keyword">static</span> constraints = &#123;
+        nome()
+        cpf(cpf:<span class="java&#45;keyword">true</span>)
+    &#125;
+&#125;</pre></div><p class="paragraph"/><h3>Validação que espera CPF formatado</h3>
+<div class="code"><pre>class Pessoa &#123;<p class="paragraph"/>    <span class="java&#45;object">String</span> nome
+    <span class="java&#45;object">String</span> cpf<p class="paragraph"/>    <span class="java&#45;keyword">static</span> constraints = &#123;
+        nome()
+        cpf(cpf:&#91;formatted:<span class="java&#45;keyword">true</span>&#93;)
+    &#125;
+&#125;</pre></div>
+<h2><a name="3.3 Validacao de CNPJ">3.3 Validacao de CNPJ</a></h2>Para usar a validação por CNPJ, basta que em sua domain class, dentro da closure de configurações de constraints dela, colocar a diretriz “cnpj” para o campo que deverá ser validado. A validação pode ser feita com o CNPJ formatado, ou não.<p class="paragraph"/><h3>Validação que espera CNPJ não formatado</h3>
+<div class="code"><pre>class Empresa &#123;<p class="paragraph"/>    <span class="java&#45;object">String</span> razaoSocial
+    <span class="java&#45;object">String</span> cnpj<p class="paragraph"/>    <span class="java&#45;keyword">static</span> constraints = &#123;
+        razaoSocial()
+        cnpj(cnpj:<span class="java&#45;keyword">true</span>)
+    &#125;
+&#125;</pre></div><p class="paragraph"/><h3>Validação que espera CNPJ formatado</h3>
+<div class="code"><pre>class Empresa &#123;<p class="paragraph"/>    <span class="java&#45;object">String</span> razaoSocial
+    <span class="java&#45;object">String</span> cnpj<p class="paragraph"/>    <span class="java&#45;keyword">static</span> constraints = &#123;
+        razaoSocial()
+        cnpj(cnpj:&#91;formatted:<span class="java&#45;keyword">true</span>&#93;)
+    &#125;
+&#125;</pre></div>
+<h2><a name="3.4 Mensagens de erro (i18n)">3.4 Mensagens de erro (i18n)</a></h2>O plugin já vem com mensagens de erro no arquivo de mensagens i18n. Apenas dois idiomas são conteplados por enquanto, Inglês (messages.properties) e Português (messages_pt_BR.properties).<p class="paragraph"/>Caso queira adicionar outros idiomas, ou alterar as mensagens de erro, as seguintes chaves são usadas:<p class="paragraph"/>
+<strong class="bold">CPF Inválido:</strong> <code>default.invalid.cpf.message</code><p class="paragraph"/><strong class="bold">CNPJ Inválido:</strong> <code>default.invalid.cnpj.message</code><p class="paragraph"/><strong class="bold">NIT Inválido:</strong> <code>default.invalid.nit.message</code><h1><a name="4. Taglibs">4. Taglibs</a></h1>O plugin também traz taglibs que facilitam a exposição dos dados na tela do usuário. Todas as taglibs possuem dois métodos, para formatar, e para retirar a formatação de um número. A sintaxe é semelhante, alterando apenas o namespace da taglib.
+<h2><a name="4.1 Taglib de CPF">4.1 Taglib de CPF</a></h2><div class="code"><pre>&#60;cpf:format value=<span class="java&#45;quote">"00000000000"</span> /&#62; &#60;!&#45;&#45; irá retornar '000.000.000&#45;00' &#45;&#45;&#62;</pre></div><p class="paragraph"/><div class="code"><pre>&#60;cpf:unformat value=<span class="java&#45;quote">"000.000.000&#45;00"</span> /&#62; &#60;!&#45;&#45; irá retornar '00000000000' &#45;&#45;&#62;</pre></div><h2><a name="4.2 Taglib de CNPJ">4.2 Taglib de CNPJ</a></h2><div class="code"><pre>&#60;cnpj:format value=<span class="java&#45;quote">"00000000000000"</span> /&#62; &#60;!&#45;&#45; irá retornar '00.000.000/0000&#45;00' &#45;&#45;&#62;</pre></div><p class="paragraph"/><div class="code"><pre>&#60;cnpj:unformat value=<span class="java&#45;quote">"00.000.000/0000&#45;00"</span> /&#62; &#60;!&#45;&#45; irá retornar '00000000000000' &#45;&#45;&#62;</pre></div><h2><a name="4.3 Taglib de NIT">4.3 Taglib de NIT</a></h2><div class="code"><pre>&#60;nit:format value=<span class="java&#45;quote">"00000000000"</span> /&#62; &#60;!&#45;&#45; irá retornar '000.00000.00&#45;0' &#45;&#45;&#62;</pre></div><p class="paragraph"/><div class="code"><pre>&#60;nit:unformat value=<span class="java&#45;quote">"000.00000.00&#45;0"</span> /&#62; &#60;!&#45;&#45; irá retornar '00000000000' &#45;&#45;&#62;</pre></div><h1><a name="5. Geracao de boletos bancarios">5. Geracao de boletos bancarios</a></h1>O plugin encapsula também a lógica de criação de boletos bancários disponível no Stella.<h2><a name="5.1 Escolhendo o banco do boleto">5.1 Escolhendo o banco do boleto</a></h2>Atualmente, na versão 1.2 do Stella, os bancos disponíveis são:
+<ul class="star">
+<li>Banco Do Brasil <code>(br.com.caelum.stella.boleto.bancos.BancoDoBrasil)</code></li>
+<li>Bradesco <code>(br.com.caelum.stella.boleto.bancos.Bradesco)</code></li>
+<li>Caixa <code>(br.com.caelum.stella.boleto.bancos.Caixa)</code></li>
+<li>Real <code>(br.com.caelum.stella.boleto.bancos.Real)</code></li>
+<li>Itau <code>(br.com.caelum.stella.boleto.bancos.Itau)</code></li>
+</ul><p class="paragraph"/>Se você precisar utilizar um banco que não está descrito e implementado, você pode criar uma classe que implemente a interface <code>br.com.caelum.stella.boleto.Banco</code>.<p class="paragraph"/>Após implementar a classe, você deve registrá-la no plugin em algum momento de sua aplicação (o recomendado é no <code>Bootstrap.groovy</code>), da seguinte maneira:<p class="paragraph"/><div class="code"><pre><span class="java&#45;keyword">import</span> br.com.caelum.grails.stella.builder.BoletoBuilder<p class="paragraph"/>(...)<p class="paragraph"/>BoletoBuilder.registerImplementation(<span class="java&#45;quote">"Santander"</span>, minha.implementacao.para.BoletoSantander)</pre></div><p class="paragraph"/>Passando sempre o nome do banco (que será usado quando você desejar um boleto deste banco), e a classe que implementa a interface.<h2><a name="5.2 BoletoBuilder">5.2 BoletoBuilder</a></h2><code>BoletoBuilder</code> é a classe responsável pela geração de boletos. Segue um exemplo de utilização em um controller:<p class="paragraph"/><div class="code"><pre><span class="java&#45;keyword">import</span> br.com.caelum.grails.stella.builder.BoletoBuilder<p class="paragraph"/>class BoletoController &#123;<p class="paragraph"/>    def index = &#123;<p class="paragraph"/>        def boleto = <span class="java&#45;keyword">new</span> BoletoBuilder(1500, <span class="java&#45;quote">"itau"</span>)
+        boleto.build &#123;
+            datas &#123;
+                vencimento (<span class="java&#45;keyword">new</span> Date() + 5)
+                documento <span class="java&#45;keyword">new</span> Date()
+                processamento <span class="java&#45;keyword">new</span> Date()
+            &#125;
+            cedente &#123;
+                cedente       <span class="java&#45;quote">"Loja de ferramentas"</span>
+                agencia       1001, 'x'
+                conta         1002,  3
+                convenio      10
+                carteira      20
+                operacao      30
+                nossoNumero   15000, 1
+            &#125;
+            sacado &#123;
+                nome          <span class="java&#45;quote">"Nome <span class="java&#45;keyword">do</span> cliente"</span>
+                cpf           <span class="java&#45;quote">"000.000.000&#45;00"</span>
+                endereco      <span class="java&#45;quote">"Rua sem nome, 1200 &#45; apto 1001"</span>
+                bairro         <span class="java&#45;quote">"Centro"</span>
+                cep           <span class="java&#45;quote">"00000&#45;000"</span>
+                cidade        <span class="java&#45;quote">"São Paulo"</span>, <span class="java&#45;quote">"SP"</span>
+            &#125;
+            aceite <span class="java&#45;keyword">false</span>
+            documento numero: <span class="java&#45;quote">"12345"</span>, especie: <span class="java&#45;quote">"XXX"</span><p class="paragraph"/>            pagamento  <span class="java&#45;quote">"Pagar até o vencimento"</span>, 
+                       <span class="java&#45;quote">"Não receber após a data de vencimento"</span><p class="paragraph"/>            instrucoes <span class="java&#45;quote">"Não cobrar juros antes <span class="java&#45;keyword">do</span> vencimento"</span>, 
+                       <span class="java&#45;quote">"Pagamento referente ao uso <span class="java&#45;keyword">do</span> sistema"</span>,
+                       <span class="java&#45;quote">"Mensalidade de julho"</span>,
+                       <span class="java&#45;quote">"Código <span class="java&#45;keyword">do</span> cliente: 12345"</span><p class="paragraph"/>            informacoes <span class="java&#45;quote">"Caro cliente, não se esqueca de pagar esta conta"</span>,
+                        <span class="java&#45;quote">"Lembre&#45;se que após 20 dias, seu acesso ao sistema irá ser restringido"</span>,
+                        <span class="java&#45;quote">"e após 60 dias, seu sistema será totalmente desligado"</span>            
+        &#125;<p class="paragraph"/>        def bytes = boleto.pdf()
+        response.setContentType(<span class="java&#45;quote">"application/pdf"</span>)
+        response.outputStream &#60;&#60; bytes
+    &#125;
+&#125;</pre></div><p class="paragraph"/><h3>Parâmetros de criação do BoletoBuilder</h3><p class="paragraph"/>Para criar o boleto, dois parâmetros são necessários, o valor do boleto e também o banco que será utilizado para este boleto. 
+Mais detalhes do banco, no item 5.1 deste guia.<p class="paragraph"/><h3>Datas do boleto</h3><p class="paragraph"/>As datas que devem ser colocadas no boleto, são sempre 3. 
+<ul class="star">
+<li>Vencimento - a <strong class="bold">data de vencimento</strong> é obrigatória no preenchimento do boleto</li>
+<li>Processamento</li>
+<li>Documento</li>
+</ul><p class="paragraph"/>Para <strong class="bold">data do documento</strong> e <strong class="bold">data do processamento</strong> o valor default é a data atual do sistema.<p class="paragraph"/><h3>Dados do emissor do boleto (remetente)</h3><p class="paragraph"/>São dados que te identificam perante o banco e também no boleto
+<ul class="star">
+<li>'cedente': seu nome ou identificação</li>
+<li>agencia: sua agencia bancária, número e digito verificador (este último pode ser um número ou um char)</li>
+<li>conta: sua conta corrente, composta também por número e digito verificador (como na agência)</li>
+<li>convenio, carteira, operação e nosso número: dados de identificação de sua emissão junto ao banco. (o nosso número segue o mesmo padrão de número e DV da agência e conta)</li>
+</ul><p class="paragraph"/><h3>Dados do sacado (destinatário)</h3>
+<ul class="star">
+<li>nome: Nome do seu cliente</li>
+<li>cpf: Documento físico (CPF) do seu cliente (usado quando cobrança para PF)</li>
+<li>cnpj: Documento jurídico (CNPJ) do seu cliente (usado quando cobrança para PJ)</li>
+<li>endereco: endereco de cobranca</li>
+<li>bairro: bairro do endereco</li>
+<li>cep: cep postal</li>
+<li>cidade: cidade dele, composta por "cidade", "estado"</li>
+</ul><p class="paragraph"/><h3>Outras configurações do boleto</h3>
+<ul class="star">
+<li>aceite: deve ser true ou false, valor padrão é false</li>
+<li>documento: Dados para que você identifique o pagamento do boleto, é um map com duas chaves: <strong class="bold">numero</strong> que representa o número do documento, e <strong class="bold">especie</strong> para caso você queira preencher o campo "Especie do documento" do boleto. - o <strong class="bold">número do documento</strong> é obrigatório no preenchimento do boleto</li>
+<li>pagamento: recebe um ou dois argumentos do tipo <code>String</code> que irão identificar o local de pagamento do seu boleto</li>
+<li>instrucoes: até 5 argumentos de texto que irão preencher o campo instruções do boleto</li>
+<li>informacoes: também 5 argumentos de texto para informações gerais do boleto. Estas informações não aparecem dentro do boleto, e sim fora do mesmo, ainda na imagem/pdf gerada.</li>
+</ul><p class="paragraph"/><h2><a name="5.3 Renderizando o boleto">5.3 Renderizando o boleto</a></h2>O plugin sempre devolve um array de <strong class="bold">byte</strong> com o conteúdo do boleto. Desta maneira você pode gravar o boleto em um arquivo em disco, devolver diretamente no response do usuário (mais comum), ou manipulá-lo também como quiser. 
+O boleto pode ser renderizado por padrão de duas maneiras, em PDF ou PNG.<p class="paragraph"/><h3>Renderizando em PDF</h3><p class="paragraph"/><div class="code"><pre>def boleto = <span class="java&#45;keyword">new</span> BoletoBuilder(1500, <span class="java&#45;quote">"itau"</span>)
+boleto.build &#123;
+    (...)
+&#125;
+def bytes = boleto.pdf()</pre></div><p class="paragraph"/><h3>Renderizando em PNG</h3><p class="paragraph"/><div class="code"><pre>def boleto = <span class="java&#45;keyword">new</span> BoletoBuilder(1500, <span class="java&#45;quote">"itau"</span>)
+boleto.build &#123;
+    (...)
+&#125;
+def bytes = boleto.png()</pre></div><p class="paragraph"/><h3>Exemplo do boleto no response</h3><p class="paragraph"/>Caso queira devolver o boleto no response diretamente para o usuário, segue um exemplo de como fazer:<p class="paragraph"/><div class="code"><pre>def boleto = <span class="java&#45;keyword">new</span> BoletoBuilder(1500, <span class="java&#45;quote">"itau"</span>)
+boleto.build &#123;
+    (...)
+&#125;
+def bytes = boleto.pdf()
+response.setContentType(<span class="java&#45;quote">"application/pdf"</span>)
+response.outputStream &#60;&#60; bytes</pre></div>
+<h1><a name="6. Changelog">6. Changelog</a></h1><ul class="star">
+<li><strong class="bold">1.4</strong></li>
+<ul class="star">
+<li>Atualização para Grails 1.3.x</li>
+<li>Documentação no novo formato</li>
+<li>Sources passados para a responsibilidade da <a href="http://www.github.com/blanq" target="blank">Blanq</a></li>
+<li>Dependências agora são baixadas via BuildConfig.groovy ao invés de possuir os jars no lib/ do plugin</li>
+<li>Geração de boletos bancários</li>
+</ul>
+<li><strong class="bold">1.3</strong></li>
+<ul class="star">
+<li>Atualização para Grails 1.2.2</li>
+</ul>
+<li><strong class="bold">1.2.1</strong></li>
+<ul class="star">
+<li>Correção do bug no retorno das taglibs para algumas versões do Grails</li>
+</ul>
+<li><strong class="bold">1.2</strong></li>
+<ul class="star">
+<li>Validação de NIT via Domain Constraint</li>
+<li>Taglibs de formação de CPF, CNPF, NIT</li>
+</ul>
+<li><strong class="bold">1.0</strong></li>
+<ul class="star">
+<li>Validação de CPF via Domain Constraint</li>
+<li>Validação de CNPJ via Domain Constraint</li>
+</ul></ul><p class="paragraph"/><h1><a name="7. Roadmap">7. Roadmap</a></h1>Ainda acho legal implementar no sistema a Rotina de <a href="http://stella.caelum.com.br/core-inwords.html" target="blank">transformação</a> de algarismos em palavras.<p class="paragraph"/>O plugin está sempre aberto a colaborações, caso queira implementar, faça o fork do projeto e envie seu código!
+        </div>
+        <div id="footer">
+             
+        </div>
+    </body>
+</html>

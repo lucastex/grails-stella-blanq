@@ -1,0 +1,97 @@
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+        <title>5. Geracao de boletos bancarios</title>
+        <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" title="Ref" charset="utf-8"/>
+    </head>
+    <body class="body">
+    <h1><a name="5. Geracao de boletos bancarios">5. Geracao de boletos bancarios</a></h1>O plugin encapsula também a lógica de criação de boletos bancários disponível no Stella.<h2><a name="5.1 Escolhendo o banco do boleto">5.1 Escolhendo o banco do boleto</a></h2>Atualmente, na versão 1.2 do Stella, os bancos disponíveis são:
+<ul class="star">
+<li>Banco Do Brasil <code>(br.com.caelum.stella.boleto.bancos.BancoDoBrasil)</code></li>
+<li>Bradesco <code>(br.com.caelum.stella.boleto.bancos.Bradesco)</code></li>
+<li>Caixa <code>(br.com.caelum.stella.boleto.bancos.Caixa)</code></li>
+<li>Real <code>(br.com.caelum.stella.boleto.bancos.Real)</code></li>
+<li>Itau <code>(br.com.caelum.stella.boleto.bancos.Itau)</code></li>
+</ul><p class="paragraph"/>Se você precisar utilizar um banco que não está descrito e implementado, você pode criar uma classe que implemente a interface <code>br.com.caelum.stella.boleto.Banco</code>.<p class="paragraph"/>Após implementar a classe, você deve registrá-la no plugin em algum momento de sua aplicação (o recomendado é no <code>Bootstrap.groovy</code>), da seguinte maneira:<p class="paragraph"/><div class="code"><pre><span class="java&#45;keyword">import</span> br.com.caelum.grails.stella.builder.BoletoBuilder<p class="paragraph"/>(...)<p class="paragraph"/>BoletoBuilder.registerImplementation(<span class="java&#45;quote">"Santander"</span>, minha.implementacao.para.BoletoSantander)</pre></div><p class="paragraph"/>Passando sempre o nome do banco (que será usado quando você desejar um boleto deste banco), e a classe que implementa a interface.<h2><a name="5.2 BoletoBuilder">5.2 BoletoBuilder</a></h2><code>BoletoBuilder</code> é a classe responsável pela geração de boletos. Segue um exemplo de utilização em um controller:<p class="paragraph"/><div class="code"><pre><span class="java&#45;keyword">import</span> br.com.caelum.grails.stella.builder.BoletoBuilder<p class="paragraph"/>class BoletoController &#123;<p class="paragraph"/>    def index = &#123;<p class="paragraph"/>        def boleto = <span class="java&#45;keyword">new</span> BoletoBuilder(1500, <span class="java&#45;quote">"itau"</span>)
+        boleto.build &#123;
+            datas &#123;
+                vencimento (<span class="java&#45;keyword">new</span> Date() + 5)
+                documento <span class="java&#45;keyword">new</span> Date()
+                processamento <span class="java&#45;keyword">new</span> Date()
+            &#125;
+            cedente &#123;
+                cedente       <span class="java&#45;quote">"Loja de ferramentas"</span>
+                agencia       1001, 'x'
+                conta         1002,  3
+                convenio      10
+                carteira      20
+                operacao      30
+                nossoNumero   15000, 1
+            &#125;
+            sacado &#123;
+                nome          <span class="java&#45;quote">"Nome <span class="java&#45;keyword">do</span> cliente"</span>
+                cpf           <span class="java&#45;quote">"000.000.000&#45;00"</span>
+                endereco      <span class="java&#45;quote">"Rua sem nome, 1200 &#45; apto 1001"</span>
+                bairro         <span class="java&#45;quote">"Centro"</span>
+                cep           <span class="java&#45;quote">"00000&#45;000"</span>
+                cidade        <span class="java&#45;quote">"São Paulo"</span>, <span class="java&#45;quote">"SP"</span>
+            &#125;
+            aceite <span class="java&#45;keyword">false</span>
+            documento numero: <span class="java&#45;quote">"12345"</span>, especie: <span class="java&#45;quote">"XXX"</span><p class="paragraph"/>            pagamento  <span class="java&#45;quote">"Pagar até o vencimento"</span>, 
+                       <span class="java&#45;quote">"Não receber após a data de vencimento"</span><p class="paragraph"/>            instrucoes <span class="java&#45;quote">"Não cobrar juros antes <span class="java&#45;keyword">do</span> vencimento"</span>, 
+                       <span class="java&#45;quote">"Pagamento referente ao uso <span class="java&#45;keyword">do</span> sistema"</span>,
+                       <span class="java&#45;quote">"Mensalidade de julho"</span>,
+                       <span class="java&#45;quote">"Código <span class="java&#45;keyword">do</span> cliente: 12345"</span><p class="paragraph"/>            informacoes <span class="java&#45;quote">"Caro cliente, não se esqueca de pagar esta conta"</span>,
+                        <span class="java&#45;quote">"Lembre&#45;se que após 20 dias, seu acesso ao sistema irá ser restringido"</span>,
+                        <span class="java&#45;quote">"e após 60 dias, seu sistema será totalmente desligado"</span>            
+        &#125;<p class="paragraph"/>        def bytes = boleto.pdf()
+        response.setContentType(<span class="java&#45;quote">"application/pdf"</span>)
+        response.outputStream &#60;&#60; bytes
+    &#125;
+&#125;</pre></div><p class="paragraph"/><h3>Parâmetros de criação do BoletoBuilder</h3><p class="paragraph"/>Para criar o boleto, dois parâmetros são necessários, o valor do boleto e também o banco que será utilizado para este boleto. 
+Mais detalhes do banco, no item 5.1 deste guia.<p class="paragraph"/><h3>Datas do boleto</h3><p class="paragraph"/>As datas que devem ser colocadas no boleto, são sempre 3. 
+<ul class="star">
+<li>Vencimento - a <strong class="bold">data de vencimento</strong> é obrigatória no preenchimento do boleto</li>
+<li>Processamento</li>
+<li>Documento</li>
+</ul><p class="paragraph"/>Para <strong class="bold">data do documento</strong> e <strong class="bold">data do processamento</strong> o valor default é a data atual do sistema.<p class="paragraph"/><h3>Dados do emissor do boleto (remetente)</h3><p class="paragraph"/>São dados que te identificam perante o banco e também no boleto
+<ul class="star">
+<li>'cedente': seu nome ou identificação</li>
+<li>agencia: sua agencia bancária, número e digito verificador (este último pode ser um número ou um char)</li>
+<li>conta: sua conta corrente, composta também por número e digito verificador (como na agência)</li>
+<li>convenio, carteira, operação e nosso número: dados de identificação de sua emissão junto ao banco. (o nosso número segue o mesmo padrão de número e DV da agência e conta)</li>
+</ul><p class="paragraph"/><h3>Dados do sacado (destinatário)</h3>
+<ul class="star">
+<li>nome: Nome do seu cliente</li>
+<li>cpf: Documento físico (CPF) do seu cliente (usado quando cobrança para PF)</li>
+<li>cnpj: Documento jurídico (CNPJ) do seu cliente (usado quando cobrança para PJ)</li>
+<li>endereco: endereco de cobranca</li>
+<li>bairro: bairro do endereco</li>
+<li>cep: cep postal</li>
+<li>cidade: cidade dele, composta por "cidade", "estado"</li>
+</ul><p class="paragraph"/><h3>Outras configurações do boleto</h3>
+<ul class="star">
+<li>aceite: deve ser true ou false, valor padrão é false</li>
+<li>documento: Dados para que você identifique o pagamento do boleto, é um map com duas chaves: <strong class="bold">numero</strong> que representa o número do documento, e <strong class="bold">especie</strong> para caso você queira preencher o campo "Especie do documento" do boleto. - o <strong class="bold">número do documento</strong> é obrigatório no preenchimento do boleto</li>
+<li>pagamento: recebe um ou dois argumentos do tipo <code>String</code> que irão identificar o local de pagamento do seu boleto</li>
+<li>instrucoes: até 5 argumentos de texto que irão preencher o campo instruções do boleto</li>
+<li>informacoes: também 5 argumentos de texto para informações gerais do boleto. Estas informações não aparecem dentro do boleto, e sim fora do mesmo, ainda na imagem/pdf gerada.</li>
+</ul><p class="paragraph"/><h2><a name="5.3 Renderizando o boleto">5.3 Renderizando o boleto</a></h2>O plugin sempre devolve um array de <strong class="bold">byte</strong> com o conteúdo do boleto. Desta maneira você pode gravar o boleto em um arquivo em disco, devolver diretamente no response do usuário (mais comum), ou manipulá-lo também como quiser. 
+O boleto pode ser renderizado por padrão de duas maneiras, em PDF ou PNG.<p class="paragraph"/><h3>Renderizando em PDF</h3><p class="paragraph"/><div class="code"><pre>def boleto = <span class="java&#45;keyword">new</span> BoletoBuilder(1500, <span class="java&#45;quote">"itau"</span>)
+boleto.build &#123;
+    (...)
+&#125;
+def bytes = boleto.pdf()</pre></div><p class="paragraph"/><h3>Renderizando em PNG</h3><p class="paragraph"/><div class="code"><pre>def boleto = <span class="java&#45;keyword">new</span> BoletoBuilder(1500, <span class="java&#45;quote">"itau"</span>)
+boleto.build &#123;
+    (...)
+&#125;
+def bytes = boleto.png()</pre></div><p class="paragraph"/><h3>Exemplo do boleto no response</h3><p class="paragraph"/>Caso queira devolver o boleto no response diretamente para o usuário, segue um exemplo de como fazer:<p class="paragraph"/><div class="code"><pre>def boleto = <span class="java&#45;keyword">new</span> BoletoBuilder(1500, <span class="java&#45;quote">"itau"</span>)
+boleto.build &#123;
+    (...)
+&#125;
+def bytes = boleto.pdf()
+response.setContentType(<span class="java&#45;quote">"application/pdf"</span>)
+response.outputStream &#60;&#60; bytes</pre></div>
+
+    </body>
+</html>
