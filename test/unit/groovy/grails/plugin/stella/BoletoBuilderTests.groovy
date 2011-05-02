@@ -1,4 +1,4 @@
-package grails.stella
+package groovy.grails.plugin.stella
 
 import grails.test.GrailsUnitTestCase
 import br.com.caelum.stella.boleto.bancos.Itau

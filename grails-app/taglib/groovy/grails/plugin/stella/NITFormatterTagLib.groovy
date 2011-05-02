@@ -1,3 +1,5 @@
+package groovy.grails.plugin.stella
+
 import br.com.caelum.stella.format.NITFormatter
 import org.codehaus.groovy.grails.web.taglib.exceptions.GrailsTagException
 
