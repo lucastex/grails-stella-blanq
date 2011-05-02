@@ -89,12 +89,12 @@ class BoletoBuilder {
 	}
 	
 	byte[] png() {
-		def gerador = new BoletoGenerator(boleto)
+		def gerador = new BoletoGenerator(boletoFinal)
         return gerador.toPNG()
 	}
 	
 	byte[] pdf() {
-		def gerador = new BoletoGenerator(boleto)
+		def gerador = new BoletoGenerator(boletoFinal)
         return gerador.toPDF()		
 	}
 	
