@@ -6,7 +6,7 @@ import org.codehaus.groovy.grails.validation.ConstrainedProperty
 
 class StellaGrailsPlugin {
 
-    def version =  "1.4"
+    def version =  "1.4.1"
     def grailsVersion = "1.3 > *"
     def dependsOn = [:]
     def pluginExcludes = ["grails-app/views/error.gsp"]
